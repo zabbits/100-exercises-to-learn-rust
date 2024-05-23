@@ -1,9 +1,21 @@
+use std::vec;
+
 use ticket_fields::{TicketDescription, TicketTitle};
 
 // TODO: Implement the `IntoIterator` trait for `&TicketStore` so that the test compiles and passes.
 #[derive(Clone)]
 pub struct TicketStore {
     tickets: Vec<Ticket>,
+}
+
+impl<'a> IntoIterator for &'a TicketStore {
+    type Item = &'a Ticket;
+
+    type IntoIter = vec::IntoIter<Self::Item>;
+
+    fn into_iter(self) -> Self::IntoIter {
+        <Vec<Ticket> as AsRef<Vec<Ticket>>>::as_ref(&self.tickets).into_iter()
+    }
 }
 
 #[derive(Clone, Debug, PartialEq)]

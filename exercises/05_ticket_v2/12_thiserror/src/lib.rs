@@ -3,10 +3,19 @@
 //   a `String` field into each variant.
 //   You'll also have to add `thiserror` as a dependency in the `Cargo.toml` file.
 
+use std::error;
+
+use thiserror::Error;
+
+#[derive(Debug, Error, Clone, Copy)]
 enum TicketNewError {
+    #[error("Title cannot be empty")]
     TitleCannotBeEmpty,
+    #[error("Title cannot be longer than 50 characters")]
     TitleTooLong,
+    #[error("Description cannot be empty")]
     DescriptionCannotBeEmpty,
+    #[error("Description cannot be longer than 500 characters")]
     DescriptionTooLong,
 }
 
