@@ -11,10 +11,10 @@ pub struct TicketStore {
 impl<'a> IntoIterator for &'a TicketStore {
     type Item = &'a Ticket;
 
-    type IntoIter = vec::IntoIter<Self::Item>;
+    type IntoIter = std::slice::Iter<'a, Ticket>;
 
     fn into_iter(self) -> Self::IntoIter {
-        <Vec<Ticket> as AsRef<Vec<Ticket>>>::as_ref(&self.tickets).into_iter()
+        self.tickets.iter()
     }
 }
 
